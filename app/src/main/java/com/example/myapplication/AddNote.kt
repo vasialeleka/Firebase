@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_add_note.*
 import kotlinx.android.synthetic.main.app_bar.*
@@ -10,11 +11,6 @@ import kotlinx.android.synthetic.main.app_bar.*
 class AddNote : AppCompatActivity(), View.OnClickListener {
     lateinit var ref: DatabaseReference
     var maxId: Int = 0
-    override fun onClick(v: View?) {
-        when (v) {
-            saveNote -> ref.child((maxId).toString()).setValue("new" + maxId)
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +19,9 @@ class AddNote : AppCompatActivity(), View.OnClickListener {
         if (toolbar != null) {
             val actionbar = supportActionBar
             actionbar!!.title = "Add Note"
-            //set back button
             actionbar.setDisplayHomeAsUpEnabled(true)
             actionbar.setDisplayHomeAsUpEnabled(true)
         }
-        //set actionbar title
         saveNote.setOnClickListener(this)
         ref = FirebaseDatabase.getInstance().getReference().child("Note")
         ref.addValueEventListener(object : ValueEventListener {
@@ -40,6 +34,23 @@ class AddNote : AppCompatActivity(), View.OnClickListener {
         })
 
 
+    }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            saveNote -> saveNote()
+        }
+    }
+
+    private fun saveNote() {
+        lateinit var note: Note
+        if (txtTitle.text.isEmpty()) {
+            Toast.makeText(applicationContext, "Enter Title of note", Toast.LENGTH_LONG).show()
+        } else if (txtNote.text.isEmpty()) {
+            Toast.makeText(applicationContext, "Enter your note", Toast.LENGTH_LONG).show()
+        } else {
+            ref.child((maxId).toString()).setValue(Note(txtTitle.text.toString(), txtNote.text.toString()))
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
