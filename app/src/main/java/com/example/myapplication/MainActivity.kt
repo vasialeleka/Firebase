@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             override fun onDataChange(p0: DataSnapshot) {
                 maxId = p0.childrenCount.toInt()
+              textView.text =p0.child(0.toString()).child("text").getValue().toString()
             }
         })
         // btnSend.setOnClickListener(this)
