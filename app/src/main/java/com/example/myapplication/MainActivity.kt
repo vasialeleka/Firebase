@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.app_bar.*
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var ref: DatabaseReference
     var maxId: Int = 0
+    lateinit var notes: String
+    var listOfNotes = mutableListOf<Note>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +31,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             override fun onDataChange(p0: DataSnapshot) {
                 maxId = p0.childrenCount.toInt()
-              textView.text =p0.child(0.toString()).getValue().toString()
+                for (item in 0..maxId-1) {
+                    if (!p0.child(item.toString()).child("text").toString().isEmpty() || p0.child(item.toString()).child("text").toString().length !=0 ) {
+                        listOfNotes.add(Note(p0.child(item.toString()).child("title").getValue().toString(), p0.child(item.toString()).child("text").getValue().toString()))
+                    }
+                }
+                var s1 = "";
+
             }
         })
-        // btnSend.setOnClickListener(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -43,7 +50,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.addNote-> startActivity(Intent(this,AddNote::class.java))
+            R.id.addNote -> startActivity(Intent(this, AddNote::class.java))
         }
         return super.onOptionsItemSelected(item)
     }
