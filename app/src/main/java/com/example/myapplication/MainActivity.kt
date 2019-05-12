@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var ref: DatabaseReference
     var maxId: Int = 0
     lateinit var notes: String
-    var listOfNotes = mutableListOf<Note>()
+    var listOfNotes:MutableList<Note>? = mutableListOf<Note>()
     lateinit var context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,12 +34,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
+                listOfNotes!!.clear()
                 maxId = p0.childrenCount.toInt()
                 for (item in 0..maxId - 1) {
                     if (!p0.child(item.toString()).child("text").toString().isEmpty() || p0.child(item.toString()).child("text").toString().length != 0) {
-                        listOfNotes.add(Note(p0.child(item.toString()).child("title").getValue().toString(), p0.child(item.toString()).child("text").getValue().toString()))
+                        listOfNotes!!.add(Note(p0.child(item.toString()).child("title").getValue().toString(), p0.child(item.toString()).child("text").getValue().toString()))
                         recView.layoutManager = LinearLayoutManager(context)
-                        recView.adapter = NoteAdapter(listOfNotes, context)
+                        recView.adapter = NoteAdapter(listOfNotes!!, context)
                     }
                 }
 
@@ -71,4 +72,5 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                }
            }*/
     }
+
 }
