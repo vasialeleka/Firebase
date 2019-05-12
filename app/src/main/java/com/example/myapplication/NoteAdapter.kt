@@ -27,8 +27,8 @@ class NoteAdapter(private val list: MutableList<Note>, private var context: Cont
          var txtText: TextView
          var txtTitle: TextView
         init {
-            txtText = view.findViewById(R.id.txtTitle)
-            txtTitle = view.findViewById(R.id.txtNoteText)
+            txtText = view.findViewById(R.id.txtNoteText)
+            txtTitle = view.findViewById(R.id.txtTitle)
         }
     }
 }

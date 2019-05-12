@@ -7,14 +7,12 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity() {
     lateinit var ref: DatabaseReference
     var maxId: Int = 0
     lateinit var notes: String
@@ -39,11 +37,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 for (item in 0..maxId - 1) {
                     if (!p0.child(item.toString()).child("text").toString().isEmpty() || p0.child(item.toString()).child("text").toString().length != 0) {
                         listOfNotes!!.add(Note(p0.child(item.toString()).child("title").getValue().toString(), p0.child(item.toString()).child("text").getValue().toString()))
-                        recView.layoutManager = LinearLayoutManager(context)
-                        recView.adapter = NoteAdapter(listOfNotes!!, context)
                     }
                 }
-
+                recView.layoutManager = LinearLayoutManager(context)
+                recView.adapter = NoteAdapter(listOfNotes!!, context)
 
             }
         })
@@ -57,20 +54,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.addNote -> startActivity(Intent(this, AddNote::class.java))
+            R.id.addNote -> startActivity(Intent(this, AddNoteActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onClick(v: View?) {
-        /*   when (v) {
-               btnSend -> if (txtName.text.isEmpty()) {
-                   Toast.makeText(this, "Empty", Toast.LENGTH_SHORT).show()
-               } else {
-                   ref.child((maxId).toString()).setValue(txtName.text.toString())
-                   txtName.text.clear()
-               }
-           }*/
-    }
 
 }
