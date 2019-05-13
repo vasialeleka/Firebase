@@ -20,9 +20,11 @@ class AutorizationActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_autorization)
-        context = context
+        context = applicationContext
         mAuth = FirebaseAuth.getInstance()
         btnBack.setOnClickListener(this)
+        btnRegistr.setOnClickListener(this)
+        btnLogIn.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -39,13 +41,13 @@ class AutorizationActivity : AppCompatActivity(), View.OnClickListener {
         } else if (txtPassword.toString().isEmpty()) {
             Toast.makeText(context, "Enter password", Toast.LENGTH_SHORT).show()
         } else {
-            mAuth.signInWithEmailAndPassword(txtEmail.toString(), txtPassword.toString())
+            mAuth.signInWithEmailAndPassword(txtEmail.text.toString(), txtPassword.text.toString())
                 .addOnCompleteListener(this, object : OnCompleteListener<AuthResult> {
                     override fun onComplete(task: Task<AuthResult>) {
                         if (task.isSuccessful) {
                             Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
                         } else {
-                            Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                         }
                     }
                 })
@@ -58,13 +60,13 @@ class AutorizationActivity : AppCompatActivity(), View.OnClickListener {
         } else if (txtPassword.toString().isEmpty()) {
             Toast.makeText(context, "Enter password", Toast.LENGTH_SHORT).show()
         } else {
-            mAuth.createUserWithEmailAndPassword(txtEmail.toString(), txtPassword.toString())
+            mAuth.createUserWithEmailAndPassword(txtEmail.text.toString(), txtPassword.text.toString())
                 .addOnCompleteListener(this, object : OnCompleteListener<AuthResult> {
                     override fun onComplete(task: Task<AuthResult>) {
                         if (task.isSuccessful) {
                             Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
                         } else {
-                            Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                         }
                     }
                 })
