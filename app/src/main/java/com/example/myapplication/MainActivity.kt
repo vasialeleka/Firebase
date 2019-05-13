@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.addNote -> startActivity(Intent(this, AddNoteActivity::class.java))
+            R.id.autorization->startActivity(Intent(this,AutorizationActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }

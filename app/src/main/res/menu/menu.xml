@@ -2,8 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/addNote"
-        android:icon="@drawable/ic_add_black_24dp"
+        android:id="@+id/autorization"
+        android:icon="@drawable/ic_person_add_"
         android:title="Note"
         app:showAsAction="ifRoom" />
+    <item
+    android:id="@+id/addNote"
+    android:icon="@drawable/ic_add_black_24dp"
+    android:title="Note"
+    app:showAsAction="ifRoom" />
 </menu>
