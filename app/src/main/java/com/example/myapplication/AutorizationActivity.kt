@@ -34,7 +34,22 @@ class AutorizationActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun logIn() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (txtEmail.toString().isEmpty()) {
+            Toast.makeText(context, "Enter email", Toast.LENGTH_SHORT).show()
+        } else if (txtPassword.toString().isEmpty()) {
+            Toast.makeText(context, "Enter password", Toast.LENGTH_SHORT).show()
+        } else {
+            mAuth.signInWithEmailAndPassword(txtEmail.toString(), txtPassword.toString())
+                .addOnCompleteListener(this, object : OnCompleteListener<AuthResult> {
+                    override fun onComplete(task: Task<AuthResult>) {
+                        if (task.isSuccessful) {
+                            Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+        }
     }
 
     private fun regisration() {
@@ -43,7 +58,7 @@ class AutorizationActivity : AppCompatActivity(), View.OnClickListener {
         } else if (txtPassword.toString().isEmpty()) {
             Toast.makeText(context, "Enter password", Toast.LENGTH_SHORT).show()
         } else {
-            mAuth.signInWithEmailAndPassword(txtEmail.toString(), txtPassword.toString())
+            mAuth.createUserWithEmailAndPassword(txtEmail.toString(), txtPassword.toString())
                 .addOnCompleteListener(this, object : OnCompleteListener<AuthResult> {
                     override fun onComplete(task: Task<AuthResult>) {
                         if (task.isSuccessful) {
