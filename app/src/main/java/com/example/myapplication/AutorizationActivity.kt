@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -29,7 +30,7 @@ class AutorizationActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            btnBack -> super.onBackPressed()
+            btnBack -> startActivity(Intent(this, MainActivity::class.java))
             btnRegistr -> regisration()
             btnLogIn -> logIn()
         }
